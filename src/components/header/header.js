@@ -1,9 +1,10 @@
 import React from "react";
 import Navbar from "./navbar/navbar";
+import Link from "next/link";
 
 export default function Header() {
   return (
-    <div className="w-full flex justify-center fixed z-10">
+    <div className="w-full flex justify-center mt-2 z-10">
       <Navbar />
     </div>
   );
