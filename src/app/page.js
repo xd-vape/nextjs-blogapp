@@ -1,6 +1,6 @@
 import Header from "@/components/header/header";
 import Navbar from "@/components/header/navbar/navbar";
-import Blog from "@/sections/Blog";
+import Blog from "@/sections/List";
 import Footer from "@/sections/Footer";
 import Hero from "@/sections/Hero";
 
