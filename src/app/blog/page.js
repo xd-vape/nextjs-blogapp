@@ -1,17 +1,13 @@
 import Header from "@/components/header/header";
-import Navbar from "@/components/header/navbar/navbar";
-import Blog from "@/sections/Blog";
 import Footer from "@/sections/Footer";
-import Hero from "@/sections/Hero";
+import React from "react";
 
-export default function Home() {
+export default function page() {
   return (
     <div className="w-full flex flex-col items-center">
       <Header />
 
       {/*  */}
-      <Hero />
-      <Blog />
 
       {/*  */}
       <Footer />
