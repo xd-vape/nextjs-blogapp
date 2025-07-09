@@ -31,7 +31,7 @@ export default async function Page({ params }) {
         </h1>
       </div>
 
-      <div className="bg-white w-1/2 p-6 rounded z-5">
+      <div className="bg-white w-1/2 p-6 rounded z-5 shadow">
         Hypixel Skyblock Foraging Update The long-awaited Foraging Update for
         Hypixel Skyblock is finally here, introducing exciting new content along
         with technical changes. Players will now explore the all-new Foraging
