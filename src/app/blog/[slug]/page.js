@@ -1,4 +1,6 @@
 import Header from "@/components/header/header";
+import { DotPattern } from "@/components/magicui/dot-pattern";
+import { cn } from "@/lib/utils";
 import Footer from "@/sections/Footer";
 import React from "react";
 
@@ -9,12 +11,27 @@ export default async function Page({ params }) {
       <Header />
 
       {/*  */}
-      <div className="bg-white w-1/3 p-6 mt-10 rounded">
-        <h1 className="text-primary font-extrabold text-2xl">
+
+      <div className="bg-gradient-to-b from-white to-background w-full h-80 z-5 rounded">
+        <DotPattern
+          width={20}
+          height={20}
+          cx={1}
+          cy={1}
+          cr={1}
+          className={
+            "-z-5 " +
+            cn(
+              "[mask-image:linear-gradient(to_bottom,white,transparent,transparent)]"
+            )
+          }
+        />
+        <h1 className="bg-white p-6 w-1/3 m-auto mt-35 text-center text-primary font-extrabold text-2xl">
           ÜHypixel Skyblock – Best 1.21.5 Mods
         </h1>
       </div>
-      <div className="bg-white w-1/2 p-6 mt-10 rounded">
+
+      <div className="bg-white w-1/2 p-6 rounded z-5">
         Hypixel Skyblock Foraging Update The long-awaited Foraging Update for
         Hypixel Skyblock is finally here, introducing exciting new content along
         with technical changes. Players will now explore the all-new Foraging

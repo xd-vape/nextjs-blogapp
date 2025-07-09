@@ -25,12 +25,12 @@ export default function Navbar() {
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuLink asChild>
-              <Link href={"o"}>textst</Link>
+              <Link href={"/"}>Home</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuLink asChild>
-              <Link href={"o"}>textst</Link>
+              <Link href={"about"}>About</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
