@@ -27,7 +27,7 @@ export default async function Page({ params }) {
           }
         />
         <h1 className="bg-white p-6 w-1/3 m-auto mt-35 text-center text-primary font-extrabold text-2xl">
-          ÜHypixel Skyblock – Best 1.21.5 Mods
+          {slug}
         </h1>
       </div>
 

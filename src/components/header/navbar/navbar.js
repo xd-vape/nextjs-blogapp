@@ -1,5 +1,6 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 import {
   NavigationMenu,
@@ -15,8 +16,10 @@ import {
 import { Button } from "@/components/ui/button";
 
 export default function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
-    <div className="w-1/4 flex justify-between items-center p-1 bg-black/20 border-black/20 border rounded backdrop-blur-xl">
+    <div className="w-[430px] flex justify-between items-center p-1 bg-black/20 border-black/20 border rounded backdrop-blur-xl">
       <h1 className="uppercase text-white font-bold text-lg">
         <Link href="/">Blog</Link>
       </h1>
@@ -36,9 +39,15 @@ export default function Navbar() {
         </NavigationMenuList>
       </NavigationMenu>
 
-      <Button asChild>
-        <Link href={"/login"}>Login</Link>
-      </Button>
+      {isLoggedIn ? (
+        <Button asChild>
+          <Link href={"/create"}>Neuer Post</Link>
+        </Button>
+      ) : (
+        <Button asChild>
+          <Link href={"/login"}>Login</Link>
+        </Button>
+      )}
     </div>
   );
 }
