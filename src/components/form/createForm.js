@@ -21,6 +21,15 @@ import { Textarea } from "../ui/textarea";
 import { createPost } from "@/lib/action";
 import { slugify } from "@/lib/utils";
 
+import dynamic from "next/dynamic";
+// import "react-markdown-editor-lite/lib/index.css"; // Nur wenn du react-markdown-editor-lite nutzt
+import "@uiw/react-md-editor/markdown-editor.css"; // Für uiw/md-editor
+import "@uiw/react-markdown-preview/markdown.css";
+
+const MDEditor = dynamic(() => import("@uiw/react-md-editor"), {
+  ssr: false,
+});
+
 export default function CreateForm() {
   const form = useForm({
     resolver: zodResolver(createBlogSchema),
@@ -40,7 +49,7 @@ export default function CreateForm() {
   }
 
   return (
-    <div className="bg-white w-1/3 p-6 mt-25 rounded shadow z-20">
+    <div className="bg-white w-1/2 p-6 mt-25 rounded shadow z-20">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
@@ -63,11 +72,19 @@ export default function CreateForm() {
               <FormItem>
                 <FormLabel>Content</FormLabel>
                 <FormControl>
-                  <Textarea
+                  {/* <Textarea
                     placeholder="Tell us a little bit about yourself"
                     className=""
                     {...field}
-                  />
+                  /> */}
+                  <div className="bg-white">
+                    <MDEditor
+                      value={field.value}
+                      onChange={field.onChange}
+                      preview="edit"
+                      height={500}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>

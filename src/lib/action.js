@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import prisma from "./prisma";
 import { slugify } from "./utils";
+import { redirect } from "next/navigation";
 
 export const createPost = async (prevState, formData) => {
   const { title, content, image } = formData;
@@ -17,9 +18,10 @@ export const createPost = async (prevState, formData) => {
         authorId: 4,
       },
     });
-
-    revalidatePath("/");
   } catch (error) {
     console.error("[POST CREATE] Fehler:", error);
   }
+
+  revalidatePath("/blog");
+  redirect(`/blog/${slugify(title)}`);
 };

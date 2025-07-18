@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Item({ image, title, desc, createdAt }) {
   return (
-    <div className="bg-white flex flex-col w-[311px] p-4 gap-5 rounded shadow transition-all hover:bg-accent/10 cursor-pointer">
+    <div className="bg-white flex flex-col w-[320px] h-[400px] p-4 gap-5 rounded shadow transition-all hover:bg-accent/10 cursor-pointer">
       <Image
         src={image}
         alt="test"

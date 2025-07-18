@@ -1,10 +1,16 @@
+import React from "react";
 import Header from "@/components/header/header";
+import Footer from "@/sections/Footer";
 import { DotPattern } from "@/components/magicui/dot-pattern";
 import prisma from "@/lib/prisma";
 import { cn } from "@/lib/utils";
-import Footer from "@/sections/Footer";
 import { notFound } from "next/navigation";
-import React from "react";
+
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/github-dark.css"; // oder ein anderer Style
 
 export default async function Page({ params }) {
   const { slug } = await params;
@@ -47,7 +53,14 @@ export default async function Page({ params }) {
       </div>
 
       <div className="bg-white w-1/2 p-6 rounded z-5 shadow">
-        {post.content || "Nicht verfügbar!"}
+        <div className="prose prose-neutral dark:prose-invert max-w-none w-full">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeHighlight]}
+          >
+            {post.content || "Nicht verfügbar!"}
+          </ReactMarkdown>
+        </div>
       </div>
       {/*  */}
       <Footer />
