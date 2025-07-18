@@ -29,10 +29,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ChevronsUpDown } from "lucide-react";
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
   return (
@@ -60,7 +59,7 @@ export default function Navbar() {
         {isLoggedIn ? (
           <>
             <Button asChild>
-              <Link href={"/create"}>Neuer Post</Link>
+              <Link href={"/blog/create"}>Neuer Post</Link>
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

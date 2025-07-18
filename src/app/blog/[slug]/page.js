@@ -7,10 +7,10 @@ import { notFound } from "next/navigation";
 import React from "react";
 
 export default async function Page({ params }) {
-  const { id } = await params;
+  const { slug } = await params;
 
   const post = await prisma.post.findUnique({
-    where: { id: parseInt(id) },
+    where: { slug: slug },
     include: {
       author: true,
     },

@@ -1,12 +1,11 @@
+import CreateForm from "@/components/form/createForm";
 import Header from "@/components/header/header";
-import Navbar from "@/components/header/navbar/navbar";
-import BlogList from "@/sections/BlogList";
-import Footer from "@/sections/Footer";
-import Hero from "@/sections/Hero";
 import { DotPattern } from "@/components/magicui/dot-pattern";
 import { cn } from "@/lib/utils";
+import Footer from "@/sections/Footer";
+import React from "react";
 
-export default function Home() {
+export default function page() {
   return (
     <div className="w-full flex flex-col items-center bg-gradient-to-b from-white to-background">
       <Header />
@@ -22,11 +21,8 @@ export default function Home() {
         )}
       />
 
-      {/*  */}
-      <Hero />
-      <BlogList />
+      <CreateForm />
 
-      {/*  */}
       <Footer />
     </div>
   );

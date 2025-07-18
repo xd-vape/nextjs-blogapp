@@ -10,7 +10,7 @@ export default async function page() {
     },
   });
 
-  console.log(posts);
+  // console.log(posts);
 
   return (
     <div className="w-full flex flex-col items-center">

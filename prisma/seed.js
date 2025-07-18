@@ -4,37 +4,22 @@ const prisma = new PrismaClient();
 
 const userData = [
   {
-    name: "Alice",
-    email: "alice@prisma.io",
+    name: "Josh",
+    email: "josh@prisma.io",
     posts: {
       create: [
         {
           title: "Join the Prisma Discord",
+          slug: "join-the-prisma-discord",
           content: "https://pris.ly/discord",
           published: true,
           image: "some-image.jpg",
-          created: new Date().toISOString(),
         },
         {
           title: "Prisma on YouTube",
+          slug: "prisma-on-youTube",
           content: "https://pris.ly/youtube",
           image: "another-image.jpg",
-          created: new Date().toISOString(),
-        },
-      ],
-    },
-  },
-  {
-    name: "Bob",
-    email: "bob@prisma.io",
-    posts: {
-      create: [
-        {
-          title: "Follow Prisma on Twitter",
-          content: "https://www.twitter.com/prisma",
-          published: true,
-          image: "bob-image.jpg",
-          created: new Date().toISOString(),
         },
       ],
     },
