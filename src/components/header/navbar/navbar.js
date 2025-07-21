@@ -31,7 +31,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   return (
@@ -63,10 +63,12 @@ export default function Navbar() {
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Avatar className="w-9 h-9 rounded-lg">
-                  <AvatarImage src="" alt={"User Logo"} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-                </Avatar>
+                <button className="cursor-pointer">
+                  <Avatar className="w-9 h-9 rounded-lg">
+                    <AvatarImage src="" alt={"User Logo"} />
+                    <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  </Avatar>
+                </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"

@@ -51,7 +51,10 @@ export default function CreateForm() {
   return (
     <div className="bg-white w-1/2 p-6 mt-25 rounded shadow z-20">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col gap-5"
+        >
           <FormField
             control={form.control}
             name="title"

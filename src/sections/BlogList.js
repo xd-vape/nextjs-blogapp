@@ -2,6 +2,8 @@ import Item from "@/components/list/item";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import React from "react";
+import RemoveMarkdown from "remove-markdown";
+import striptags from "striptags";
 
 export default async function BlogList() {
   const posts = await prisma.post.findMany({
@@ -10,12 +12,14 @@ export default async function BlogList() {
     },
   });
 
-  function getExcerpt(content, maxLength = 130) {
-    if (!content) return "";
-    const plainText = content.replace(/(<([^>]+)>)/gi, ""); // HTML-Tags entfernen (optional)
-    return plainText.length > maxLength
-      ? plainText.slice(0, maxLength).trim() + "..."
-      : plainText;
+  function getExcerpt(markdown, maxLength = 130) {
+    const noMarkdown = RemoveMarkdown(markdown || "");
+    const noHtml = striptags(noMarkdown);
+    const cleanText = noHtml.replace(/\n+/g, " ").trim();
+
+    return cleanText.length > maxLength
+      ? cleanText.slice(0, maxLength) + "..."
+      : cleanText;
   }
 
   return (

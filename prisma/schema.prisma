@@ -14,21 +14,82 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// model User {
+//   id    Int    @id @default(autoincrement())
+//   name  String
+//   email String @unique
+//   posts Post[]
+// }
+
 model User {
-  id    Int    @id @default(autoincrement())
-  name  String
-  email String @unique
-  posts Post[]
+  id            String    @id
+  name          String
+  email         String
+  emailVerified Boolean
+  image         String?
+  createdAt     DateTime
+  updatedAt     DateTime
+  sessions      Session[]
+  accounts      Account[]
+  Post          Post[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime
+  updatedAt DateTime
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
+}
+
+model Verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
 }
 
 model Post {
-  id          Int    @id @default(autoincrement())
-  slug        String @unique
-  title       String
-  content     String?
-  image       String
-  created     DateTime @default(now())
-  authorId    Int
-  author      User @relation(fields: [authorId], references: [id])
-  published   Boolean @default(true)
+  id        Int      @id @default(autoincrement())
+  slug      String   @unique
+  title     String
+  content   String?
+  image     String
+  created   DateTime @default(now())
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  published Boolean  @default(true)
 }
