@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   NavigationMenu,
@@ -29,10 +29,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useRouter } from "next/navigation";
+import { useSession } from "@/lib/auth-client";
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+
+  const router = useRouter();
+  const { session, isPending } = useSession();
+
+  // useEffect(() => {
+  //   if (!isPending && !session?.user) {
+  //     // router.push("/login");
+  //     console.log("nicht angemeldet");
+  //   }
+  // }, [isPending, session, router]);
 
   return (
     <div className="w-[440px] flex justify-between items-center p-1 bg-black/20 border-black/20 border rounded backdrop-blur-xl">
@@ -56,7 +68,7 @@ export default function Navbar() {
       </NavigationMenu>
 
       <div className="flex items-center gap-2">
-        {isLoggedIn ? (
+        {isPending ? null : session?.user ? (
           <>
             <Button asChild>
               <Link href={"/blog/create"}>Neuer Post</Link>
@@ -100,9 +112,11 @@ export default function Navbar() {
             </DropdownMenu>
           </>
         ) : (
-          <Button asChild>
-            <Link href={"/login"}>Login</Link>
-          </Button>
+          <>
+            <Button asChild>
+              <Link href={"/login"}>Login</Link>
+            </Button>
+          </>
         )}
       </div>
     </div>
