@@ -1,4 +1,4 @@
-import z from "zod";
+import z, { email } from "zod";
 
 export const createBlogSchema = z.object({
   title: z.string(),
@@ -17,3 +17,8 @@ export const signUpSchema = z
     message: "Passwörter stimmen nicht überein!",
     path: ["passwordConfirm"],
   });
+
+export const signInSchema = z.object({
+  email: z.email("Ungültige E-Mail-Adresse"),
+  password: z.string(),
+});

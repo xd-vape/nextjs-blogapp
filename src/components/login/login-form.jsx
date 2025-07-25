@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,8 +11,45 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signInSchema } from "@/lib/zod/schema";
+import { signUser } from "@/lib/action";
 
 export function LoginForm({ className, ...props }) {
+  const router = useRouter();
+  const [error, setError] = useState(null);
+
+  const form = useForm({
+    resolver: zodResolver(signInSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  async function handleSubmit(values) {
+    setError(null);
+
+    const res = await signUser(undefined, values);
+
+    if (res.error) {
+      setError(res.error.message || "Es ist was schief gelaufen!");
+    } else {
+      router.push("/");
+    }
+  }
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -22,46 +60,59 @@ export function LoginForm({ className, ...props }) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
-            <div className="grid gap-6">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleSubmit)}>
               <div className="grid gap-6">
-                <div className="grid gap-3">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="m@example.com"
-                    required
+                <div className="grid gap-6">
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input placeholder="muster@example.com" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Passwort</FormLabel>
+                        <FormControl>
+                          <Input type={"password"} {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  {error && <p className="text-red-500 text-center">{error}</p>}
+                  <Button type="submit" className="w-full">
+                    Login
+                  </Button>
                 </div>
-                <div className="grid gap-3">
-                  <div className="flex items-center">
-                    <Label htmlFor="password">Passwort</Label>
-                  </div>
-                  <Input id="password" type="password" required />
+                <div className="flex justify-between">
+                  <Button type="button" variant={"secondary"} className="">
+                    <Link href={"/register"}>Registrieren</Link>
+                  </Button>
+                  <Button type="button" variant={"link"} className="">
+                    Passwort vergessen?
+                  </Button>
                 </div>
-                <Button type="submit" className="w-full">
-                  Login
-                </Button>
-              </div>
-              <div className="flex justify-between">
-                <Button type="button" variant={"secondary"} className="">
-                  <Link href={"/register"}>Registrieren</Link>
-                </Button>
-                <Button type="button" variant={"link"} className="">
-                  Passwort vergessen?
-                </Button>
-              </div>
 
-              {/* KOMMENDES FEATURE */}
-              {/* Trennlinien */}
-              {/* <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+                {/* KOMMENDES FEATURE */}
+                {/* Trennlinien */}
+                {/* <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                 <span className="bg-card text-muted-foreground relative z-10 px-2">
                   oder
                 </span>
               </div> */}
-              {/* Social Logins */}
-              {/* <div className="flex flex-col gap-4">
+                {/* Social Logins */}
+                {/* <div className="flex flex-col gap-4">
                 <Button type="button" variant="outline" className="w-full">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path
@@ -72,8 +123,9 @@ export function LoginForm({ className, ...props }) {
                   Login with Apple
                 </Button>
               </div> */}
-            </div>
-          </form>
+              </div>
+            </form>
+          </Form>
         </CardContent>
       </Card>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">

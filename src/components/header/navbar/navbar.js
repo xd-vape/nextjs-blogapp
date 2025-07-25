@@ -37,14 +37,16 @@ export default function Navbar() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const router = useRouter();
-  const { session, isPending } = useSession();
+  const { data: session, isPending } = useSession();
 
-  // useEffect(() => {
-  //   if (!isPending && !session?.user) {
-  //     // router.push("/login");
-  //     console.log("nicht angemeldet");
-  //   }
-  // }, [isPending, session, router]);
+  useEffect(() => {
+    if (!isPending && !session?.user) {
+      router.push("/login");
+      // console.log("nicht angemeldet");
+    }
+  }, [isPending, session, router]);
+
+  // const { user } = session;
 
   return (
     <div className="w-[440px] flex justify-between items-center p-1 bg-black/20 border-black/20 border rounded backdrop-blur-xl">

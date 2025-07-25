@@ -4,8 +4,8 @@ import { revalidatePath } from "next/cache";
 import prisma from "./prisma";
 import { slugify } from "./utils";
 import { redirect } from "next/navigation";
-import { signUp } from "./auth-client";
-import { signUpSchema } from "./zod/schema";
+import { signIn, signUp } from "./auth-client";
+import { signInSchema, signUpSchema } from "./zod/schema";
 
 export const createPost = async (prevState, formData) => {
   const { title, content, image } = formData;
@@ -59,6 +59,38 @@ export const createUser = async (prevState, formData) => {
         message:
           "Es gab einen Fehler bei der Registrierung. Bitte versuche es später erneut.",
         code: "REGISTRATION_ERROR",
+      },
+    };
+  }
+};
+
+export const signUser = async (prevState, formData) => {
+  const { email, password } = formData;
+
+  const result = signInSchema.safeParse({
+    email,
+    password,
+  });
+
+  if (!result.success) {
+    return {
+      errors: formatZodErrors(result.error),
+    };
+  }
+
+  try {
+    const response = await signIn.email({
+      email: email,
+      password: password,
+    });
+
+    return response;
+  } catch (error) {
+    console.error("Authentifizierungsfehler:", error.message);
+
+    return {
+      error: {
+        message: "Falsche E-Mail oder Passwort",
       },
     };
   }
