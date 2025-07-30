@@ -12,6 +12,14 @@ import { headers } from "next/headers";
 export const createPost = async (prevState, formData) => {
   const { title, content, image } = formData;
 
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session || !session.user?.id) {
+    throw new Error("Benutzer nicht authentifiziert");
+  }
+
   try {
     await prisma.post.create({
       data: {
@@ -19,7 +27,7 @@ export const createPost = async (prevState, formData) => {
         content,
         image,
         slug: slugify(title),
-        authorId: 4,
+        authorId: session.user.id,
       },
     });
   } catch (error) {
