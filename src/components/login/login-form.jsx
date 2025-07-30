@@ -27,6 +27,7 @@ import { signInSchema } from "@/lib/zod/schema";
 import { signUser } from "@/lib/action";
 
 export function LoginForm({ className, ...props }) {
+  const [isPending, setIsPending] = useState(false);
   const router = useRouter();
   const [error, setError] = useState(null);
 
@@ -39,13 +40,17 @@ export function LoginForm({ className, ...props }) {
   });
 
   async function handleSubmit(values) {
+    setIsPending(true);
     setError(null);
 
-    const res = await signUser(undefined, values);
+    const { error } = await signUser(undefined, values);
 
-    if (res.error) {
-      setError(res.error.message || "Es ist was schief gelaufen!");
+    if (error) {
+      setError(error || "Es ist was schief gelaufen!");
+      // console.log(error);
+      setIsPending(false);
     } else {
+      // console.log("Erfolgreich");
       router.push("/");
     }
   }

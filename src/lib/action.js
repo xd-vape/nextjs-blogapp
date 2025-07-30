@@ -4,8 +4,10 @@ import { revalidatePath } from "next/cache";
 import prisma from "./prisma";
 import { slugify } from "./utils";
 import { redirect } from "next/navigation";
-import { signIn, signUp } from "./auth-client";
+import { signUp } from "./auth-client";
 import { signInSchema, signUpSchema } from "./zod/schema";
+import { auth } from "./auth";
+import { headers } from "next/headers";
 
 export const createPost = async (prevState, formData) => {
   const { title, content, image } = formData;
@@ -79,12 +81,15 @@ export const signUser = async (prevState, formData) => {
   }
 
   try {
-    const response = await signIn.email({
-      email: email,
-      password: password,
+    await auth.api.signInEmail({
+      headers: await headers(),
+      body: {
+        email,
+        password,
+      },
     });
 
-    return response;
+    return { error: null };
   } catch (error) {
     console.error("Authentifizierungsfehler:", error.message);
 

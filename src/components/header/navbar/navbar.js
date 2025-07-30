@@ -1,6 +1,5 @@
-"use client";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import {
   NavigationMenu,
@@ -14,40 +13,9 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useRouter } from "next/navigation";
-import { useSession } from "@/lib/auth-client";
+import NavUserAction from "./userAction";
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-
-  const router = useRouter();
-  const { data: session, isPending } = useSession();
-
-  useEffect(() => {
-    if (!isPending && !session?.user) {
-      router.push("/login");
-      // console.log("nicht angemeldet");
-    }
-  }, [isPending, session, router]);
-
-  // const { user } = session;
-
   return (
     <div className="w-[440px] flex justify-between items-center p-1 bg-black/20 border-black/20 border rounded backdrop-blur-xl">
       <h1 className="uppercase text-white font-bold text-lg">
@@ -69,58 +37,7 @@ export default function Navbar() {
         </NavigationMenuList>
       </NavigationMenu>
 
-      <div className="flex items-center gap-2">
-        {isPending ? null : session?.user ? (
-          <>
-            <Button asChild>
-              <Link href={"/blog/create"}>Neuer Post</Link>
-            </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="cursor-pointer">
-                  <Avatar className="w-9 h-9 rounded-lg">
-                    <AvatarImage src="" alt={"User Logo"} />
-                    <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-                  </Avatar>
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-                align="start"
-                sideOffset={10}
-              >
-                <DropdownMenuLabel className="p-0 font-normal">
-                  <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                    <Avatar className="h-8 w-8 rounded-lg">
-                      <AvatarImage src="" alt={"User Logo"} />
-                      <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-                    </Avatar>
-                    <div className="grid flex-1 text-left text-sm leading-tight">
-                      <span className="truncate font-medium">user.name</span>
-                      <span className="truncate text-xs">user.email</span>
-                    </div>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                {isAdmin && (
-                  <>
-                    <DropdownMenuItem>Admin</DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                  </>
-                )}
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Log out</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </>
-        ) : (
-          <>
-            <Button asChild>
-              <Link href={"/login"}>Login</Link>
-            </Button>
-          </>
-        )}
-      </div>
+      <NavUserAction />
     </div>
   );
 }
