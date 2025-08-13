@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export default function Home() {
   return (
-    <div className="w-full flex flex-col items-center bg-gradient-to-b from-white to-background">
+    <div className="w-full h-screen flex flex-col gap-5 items-center bg-gradient-to-b from-white to-background">
       <Header />
 
       <DotPattern
@@ -23,8 +23,10 @@ export default function Home() {
       />
 
       {/*  */}
-      <Hero />
-      <BlogList />
+      <div className="h-full flex flex-col items-center">
+        <Hero />
+        <BlogList />
+      </div>
 
       {/*  */}
       <Footer />

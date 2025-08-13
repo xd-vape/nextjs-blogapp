@@ -28,12 +28,12 @@ export default async function Page({ params }) {
   }
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full h-screen flex flex-col gap-5 items-center">
       <Header />
 
       {/*  */}
 
-      <div className="bg-gradient-to-b from-white to-background w-full h-80 z-5 rounded">
+      <div className="bg-gradient-to-b from-white to-background w-full h-full z-5 rounded">
         <DotPattern
           width={20}
           height={20}
@@ -47,12 +47,12 @@ export default async function Page({ params }) {
             )
           }
         />
-        <div className="bg-white p-6 w-1/3 m-auto mt-35 text-center">
+        <div className="bg-white p-6 w-1/3 m-auto mt-40 text-center">
           <h1 className="text-primary font-extrabold text-3xl">{post.title}</h1>
         </div>
       </div>
 
-      <div className="w-1/3 flex flex-col gap-5">
+      <div className="w-1/2 flex flex-col mt-25 gap-5">
         <div className="prose prose-neutral dark:prose-invert max-w-none w-full">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
@@ -79,6 +79,7 @@ export default async function Page({ params }) {
           </div>
         </div>
       </div>
+
       {/*  */}
       <Footer />
     </div>

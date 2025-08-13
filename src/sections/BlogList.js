@@ -37,30 +37,6 @@ export default async function BlogList() {
           />
         </Link>
       ))}
-      {/* <Item
-        title={"Test Title"}
-        desc={
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna."
-        }
-        createdAt={"01.01.2000"}
-        image={"https://placehold.co/320x200/WebP"}
-      />
-      <Item
-        title={"Test Title"}
-        desc={
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna."
-        }
-        createdAt={"01.01.2000"}
-        image={"https://placehold.co/320x200/WebP"}
-      />
-      <Item
-        title={"Test Title"}
-        desc={
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna."
-        }
-        createdAt={"01.01.2000"}
-        image={"https://placehold.co/320x200/WebP"}
-      /> */}
     </div>
   );
 }

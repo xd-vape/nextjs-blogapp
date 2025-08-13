@@ -74,13 +74,15 @@ export default async function NavUserAction() {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               {/* ROLE SYSTEM BENÖTIGT HIER*/}
-              {/* {isAdmin && (
+              {session?.user.role == "admin" && (
                 <>
                   <DropdownMenuItem>Admin</DropdownMenuItem>
                   <DropdownMenuSeparator />
                 </>
-              )} */}
-              <DropdownMenuItem>Settings</DropdownMenuItem>
+              )}
+              <DropdownMenuItem>
+                <Link href={"/settings"}>Einstellungen</Link>
+              </DropdownMenuItem>
               <SignOutButton />
             </DropdownMenuContent>
           </DropdownMenu>

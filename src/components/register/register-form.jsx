@@ -27,6 +27,7 @@ import {
 import { createUser } from "@/lib/action";
 
 export function RegisterForm({ className, ...props }) {
+  const [isPending, setIsPending] = useState(false);
   const router = useRouter();
   const [error, setError] = useState(null);
 
@@ -41,12 +42,14 @@ export function RegisterForm({ className, ...props }) {
   });
 
   async function handleSubmit(values) {
+    setIsPending(true);
     setError(null);
 
     const res = await createUser(undefined, values);
 
     if (res.error) {
       setError(res.error.message || "Es ist was schief gelaufen!");
+      setIsPending(false);
     } else {
       router.push("/");
     }
@@ -117,7 +120,9 @@ export function RegisterForm({ className, ...props }) {
                     )}
                   />
                   {error && <p className="text-red-500 text-center">{error}</p>}
-                  <Button type="submit">Registrieren</Button>
+                  <Button type="submit" disabeld={isPending}>
+                    Registrieren
+                  </Button>
                 </div>
                 <div className="flex justify-between">
                   <Button

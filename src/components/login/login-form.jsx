@@ -47,7 +47,6 @@ export function LoginForm({ className, ...props }) {
 
     if (error) {
       setError(error || "Es ist was schief gelaufen!");
-      // console.log(error);
       setIsPending(false);
     } else {
       // console.log("Erfolgreich");
@@ -96,7 +95,7 @@ export function LoginForm({ className, ...props }) {
                     )}
                   />
                   {error && <p className="text-red-500 text-center">{error}</p>}
-                  <Button type="submit" className="w-full">
+                  <Button type="submit" className="w-full" disabled={isPending}>
                     Login
                   </Button>
                 </div>
