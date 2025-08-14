@@ -1,4 +1,4 @@
-import CreateForm from "@/components/form/createForm";
+import CreateForm from "@/components/form/createpost/createPost-form";
 import Header from "@/components/header/header";
 import { DotPattern } from "@/components/magicui/dot-pattern";
 import { cn } from "@/lib/utils";
